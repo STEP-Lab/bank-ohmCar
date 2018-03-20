@@ -1,6 +1,7 @@
 import com.thoughtworks.step.Account;
 import com.thoughtworks.step.InvalidAccountNumberException;
 import com.thoughtworks.step.MinimumBalanceException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +9,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class AccountTest {
-
     private Account account;
 
     @Before

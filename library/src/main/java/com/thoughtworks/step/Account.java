@@ -25,19 +25,19 @@ public class Account {
 
 
     public int getBalance() {
-        return this.balance;
+        return balance;
     }
 
     public String getAccountNumber() {
-        return this.accountNumber;
+        return accountNumber;
     }
 
     public void credit(int amount) {
-        this.balance+=amount;
+        balance+=amount;
     }
 
     public void debit(int amount) throws MinimumBalanceException{
-        validateBalance(this.balance-amount,"Can't process your withdraw request");
-        this.balance-=amount;
+        validateBalance(balance-amount,"Can't process your withdraw request");
+        balance-=amount;
     }
 }
