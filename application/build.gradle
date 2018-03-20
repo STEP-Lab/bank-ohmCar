@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+dependencies {
+    compile project(':library')
+}
+
+shadowJar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.thoughtworks.step.Application'
+        )
+    }
+}
+
+jar.enabled = false
+
+sourceCompatibility = 1.8

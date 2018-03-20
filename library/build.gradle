@@ -1,0 +1,14 @@
+buildscript {
+    repositories { mavenCentral() }
+}
+
+apply plugin: 'java'
+
+jar {
+    baseName = 'step-library'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories { mavenCentral() }
