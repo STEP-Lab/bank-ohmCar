@@ -1,4 +1,0 @@
-rootProject.name = 'bank'
-
-include 'library'
-include 'application'
