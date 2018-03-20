@@ -1,7 +1,9 @@
 import com.thoughtworks.step.Account;
+import com.thoughtworks.step.InvalidAccountNumberException;
 import com.thoughtworks.step.MinimumBalanceException;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -10,8 +12,8 @@ public class AccountTest {
     private Account account;
 
     @Before
-    public void setUp() throws MinimumBalanceException {
-        account = new Account("1234", 5000);
+    public void setUp() throws MinimumBalanceException, InvalidAccountNumberException {
+        account = new Account("1111-2222", 5000);
     }
 
     @Test
@@ -21,12 +23,17 @@ public class AccountTest {
 
     @Test
     public void checkAccountNumber() {
-        assertThat(account.getAccountNumber(),is("1234"));
+        assertThat(account.getAccountNumber(),is("1111-2222"));
     }
 
     @Test(expected = MinimumBalanceException.class)
-    public void checkMinimumBalance () throws MinimumBalanceException {
-        new Account("2345",800);
+    public void checkMinimumBalance () throws MinimumBalanceException,InvalidAccountNumberException {
+        new Account("2222-1111",800);
+    }
+
+    @Test(expected = InvalidAccountNumberException.class)
+    public void validateAccountNumber() throws InvalidAccountNumberException, MinimumBalanceException{
+        new Account("11-22",2000);
     }
 
     @Test
