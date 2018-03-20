@@ -20,13 +20,14 @@ public class Account {
         return accountNumber;
     }
 
-    public int credit(int amount) {
+    public void credit(int amount) {
         balance+=amount;
-        return balance;
     }
 
-    public int debit(int amount) {
+    public void debit(int amount) throws MinimumBalanceException{
         balance-=amount;
-        return balance;
+        if(balance < 1000) {
+            throw new MinimumBalanceException();
+        }
     }
 }
