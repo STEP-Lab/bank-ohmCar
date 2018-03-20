@@ -37,7 +37,7 @@ public class Account {
     }
 
     public void debit(int amount) throws MinimumBalanceException{
+        validateBalance(this.balance-amount,"Can't process your withdraw request");
         this.balance-=amount;
-        validateBalance(balance,"Can't process your withdraw request");
     }
 }
