@@ -19,4 +19,9 @@ public class Account {
     public String getAccountNumber() {
         return accountNumber;
     }
+
+    public int credit(int amount) {
+        balance+=amount;
+        return balance;
+    }
 }

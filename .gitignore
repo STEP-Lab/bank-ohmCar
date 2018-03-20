@@ -15,3 +15,4 @@ library/out
 library/.settings
 *.iml
 bin/
+out/
