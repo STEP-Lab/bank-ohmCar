@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class AccountTest {
     private Account account;
@@ -64,5 +64,10 @@ public class AccountTest {
     public void checkMinimumBalanceDebit() throws MinimumBalanceException{
         assertThat(account.getBalance(),is(5000.0));
         account.debit(4999);
+    }
+
+    @Test
+    public void checkSummary() {
+        assertThat(account.getSummary(),is("Account{accountNumber='1111-2222', accountHolder='Omkar Mote', balance=5000.0}"));
     }
 }

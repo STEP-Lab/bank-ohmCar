@@ -1,5 +1,6 @@
 package com.thoughtworks.step;
 
+
 public class Account {
     private final String accountNumber;
     private final String accountHolder;
@@ -59,5 +60,13 @@ public class Account {
             return balance;
         }
         throw new MinimumBalanceException("Can't process your debit request due to low balance");
+    }
+
+    public String getSummary() {
+        return "Account{" +
+                "accountNumber='" + accountNumber + '\'' +
+                ", accountHolder='" + accountHolder + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 }
