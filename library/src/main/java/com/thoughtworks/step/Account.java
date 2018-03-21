@@ -10,7 +10,7 @@ public class Account {
         this.accountNumber = accountNumber;
         this.accountHolder = accountHolder;
         if(!validateBalance(balance)) {
-            throw new MinimumBalanceException("Insufficient minimum balance to create an account");
+            throw new MinimumBalanceException("Insufficient minimum balance to create an account!");
         }
         validateAccountNumber(accountNumber);
         this.balance = balance;
@@ -33,7 +33,7 @@ public class Account {
 
     private static void validateAccountNumber(String accountNumber) throws InvalidAccountNumberException{
         if(!accountNumber.matches("\\d{4}-\\d{4}")){
-            throw new InvalidAccountNumberException("Invalid account number");
+            throw new InvalidAccountNumberException("Invalid account number!");
         }
     }
 
@@ -51,7 +51,7 @@ public class Account {
             balance+=amountToBeCredited;
             return balance;
         }
-        throw new MinimumBalanceException("Invalid credit request");
+        throw new MinimumBalanceException("Invalid credit request!");
     }
 
     public double debit(int amountToBeDebited) throws MinimumBalanceException {
@@ -59,7 +59,7 @@ public class Account {
             balance-=amountToBeDebited;
             return balance;
         }
-        throw new MinimumBalanceException("Can't process your debit request due to low balance");
+        throw new MinimumBalanceException("Can't process your debit request due to low balance!");
     }
 
     public String getSummary() {

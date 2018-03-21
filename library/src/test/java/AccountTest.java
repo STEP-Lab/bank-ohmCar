@@ -48,7 +48,7 @@ public class AccountTest {
     }
 
     @Test(expected = MinimumBalanceException.class)
-    public void checkMinimumBalanceCredit() throws MinimumBalanceException{
+    public void checkMinimumBalanceToCredit() throws MinimumBalanceException{
         assertThat(account.getBalance(),is(5000.0));
         account.credit(-1000);
     }
@@ -61,7 +61,7 @@ public class AccountTest {
     }
 
     @Test(expected = MinimumBalanceException.class)
-    public void checkMinimumBalanceDebit() throws MinimumBalanceException{
+    public void checkMinimumBalanceToDebit() throws MinimumBalanceException{
         assertThat(account.getBalance(),is(5000.0));
         account.debit(4999);
     }
