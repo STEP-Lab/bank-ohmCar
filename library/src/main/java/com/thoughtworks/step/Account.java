@@ -2,10 +2,12 @@ package com.thoughtworks.step;
 
 public class Account {
     private final String accountNumber;
+    private final String accountHolder;
     private double balance;
 
-    public Account(String accountNumber, double balance) throws MinimumBalanceException,InvalidAccountNumberException {
+    public Account(String accountNumber, double balance, String accountHolder) throws MinimumBalanceException,InvalidAccountNumberException {
         this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
         if(!validateBalance(balance)) {
             throw new MinimumBalanceException("Insufficient minimum balance to create an account");
         }
@@ -18,6 +20,10 @@ public class Account {
     }
     public String getAccountNumber() {
         return accountNumber;
+    }
+
+    public String getAccountHolder() {
+        return accountHolder;
     }
 
     private static boolean validateBalance(double balance){
