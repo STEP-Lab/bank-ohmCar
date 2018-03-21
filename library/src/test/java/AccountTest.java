@@ -18,7 +18,7 @@ public class AccountTest {
 
     @Test
     public void checkBalance() {
-        assertThat(account.getBalance(),is(5000));
+        assertThat(account.getBalance(),is(5000.0));
     }
 
     @Test
@@ -37,22 +37,27 @@ public class AccountTest {
     }
 
     @Test
-    public void checkCreditTransfer() {
-        assertThat(account.getBalance(),is(5000));
-        account.credit(2000);
-        assertThat(account.getBalance(),is(7000));
+    public void checkCreditTransfer() throws MinimumBalanceException{
+        assertThat(account.getBalance(),is(5000.0));
+        assertThat(account.credit(2000),is(7000.0));
+    }
+
+    @Test(expected = MinimumBalanceException.class)
+    public void checkMinimumBalanceCredit() throws MinimumBalanceException{
+        assertThat(account.getBalance(),is(5000.0));
+        account.credit(-1000);
     }
 
     @Test
     public void checkDebitTransfer() throws MinimumBalanceException{
-        assertThat(account.getBalance(),is(5000));
+        assertThat(account.getBalance(),is(5000.0));
         account.debit(3000);
-        assertThat(account.getBalance(),is(2000));
+        assertThat(account.getBalance(),is(2000.0));
     }
 
     @Test(expected = MinimumBalanceException.class)
     public void checkMinimumBalanceDebit() throws MinimumBalanceException{
-        assertThat(account.getBalance(),is(5000));
-        account.debit(4500);
+        assertThat(account.getBalance(),is(5000.0));
+        account.debit(4999);
     }
 }

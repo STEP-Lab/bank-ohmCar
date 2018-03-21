@@ -2,42 +2,56 @@ package com.thoughtworks.step;
 
 public class Account {
     private final String accountNumber;
-    private int balance;
+    private double balance;
 
-    public Account(String accountNumber, int balance) throws MinimumBalanceException,InvalidAccountNumberException {
+    public Account(String accountNumber, double balance) throws MinimumBalanceException,InvalidAccountNumberException {
         this.accountNumber = accountNumber;
-        validateBalance(balance,"Insufficient balance to create an account");
+        if(!validateBalance(balance)) {
+            throw new MinimumBalanceException("Insufficient minimum balance to create an account");
+        }
         validateAccountNumber(accountNumber);
         this.balance = balance;
     }
 
-    private static void validateAccountNumber(String accountNumber) throws InvalidAccountNumberException {
+    public double getBalance() {
+        return balance;
+    }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    private static boolean validateBalance(double balance){
+        return balance > 1000;
+    }
+
+    private static void validateAccountNumber(String accountNumber) throws InvalidAccountNumberException{
         if(!accountNumber.matches("\\d{4}-\\d{4}")){
             throw new InvalidAccountNumberException("Invalid account number");
         }
     }
 
-    private static void validateBalance(int balance,String message) throws MinimumBalanceException {
-        if(balance < 1000){
-            throw new MinimumBalanceException(message);
+    private static boolean canDebit(double amountToBeDebited,double balance){
+        double updatedBalance = balance - amountToBeDebited;
+        return validateBalance(updatedBalance);
+    }
+
+    private static boolean canCredit(double amountToBeCredited){
+        return amountToBeCredited > 0;
+    }
+
+    public double credit(int amountToBeCredited) throws MinimumBalanceException{
+        if(canCredit(amountToBeCredited)){
+            balance+=amountToBeCredited;
+            return balance;
         }
+        throw new MinimumBalanceException("Invalid credit request");
     }
 
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void credit(int amount) {
-        balance+=amount;
-    }
-
-    public void debit(int amount) throws MinimumBalanceException{
-        validateBalance(balance-amount,"Can't process your withdraw request");
-        balance-=amount;
+    public double debit(int amountToBeDebited) throws MinimumBalanceException {
+        if (canDebit(amountToBeDebited, balance)) {
+            balance-=amountToBeDebited;
+            return balance;
+        }
+        throw new MinimumBalanceException("Can't process your debit request due to low balance");
     }
 }
