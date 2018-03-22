@@ -19,18 +19,18 @@ public class Account {
         return accountHolder;
     }
 
-    private static void validateBalance(double balance) throws MinimumBalanceException {
+    private void validateBalance(double balance) throws MinimumBalanceException {
         if(balance < 1000) {
             throw new MinimumBalanceException("Insufficient balance to create an account!");
         }
     }
 
-    private static boolean canDebit(double amountToBeDebited,double balance){
+    private boolean canDebit(double amountToBeDebited,double balance){
         double updatedBalance = balance - amountToBeDebited;
         return updatedBalance >= 1000;
     }
 
-    private static boolean canCredit(double amountToBeCredited){
+    private boolean canCredit(double amountToBeCredited){
         return amountToBeCredited > 0;
     }
 
