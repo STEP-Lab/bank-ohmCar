@@ -10,10 +10,10 @@ import static org.junit.Assert.assertThat;
 public class TransactionsTest {
     @Test
     public void recordTransaction() {
-        Date date = new Date();
-        Transaction debitTransaction = new DebitTransaction(date,"Omkar",1000);
         Transactions transactions = new Transactions();
         transactions.debit("Omkar",1000);
-        assertThat(transactions.allTransactions,hasItem(debitTransaction));
+        assertThat(transactions.allTransactions,hasItem(new DebitTransaction(new Date(),"Omkar",1000)));
+        transactions.credit("Ketan",1000);
+        assertThat(transactions.allTransactions,hasItem(new CreditTransaction(new Date(),"Ketan",1000)));
     }
 }

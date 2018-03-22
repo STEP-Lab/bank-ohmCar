@@ -12,4 +12,8 @@ public class Transactions {
     public void debit(String to,double amountToBeDebited){
         this.allTransactions.add(new DebitTransaction(to,amountToBeDebited));
     }
+
+    public void credit(String to, double amountToBeCredited) {
+        this.allTransactions.add(new CreditTransaction(to,amountToBeCredited));
+    }
 }
