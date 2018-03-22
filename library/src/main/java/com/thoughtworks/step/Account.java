@@ -7,9 +7,7 @@ public class Account {
 
     public Account(AccountNumber accountNumber, double balance, String accountHolder) throws MinimumBalanceException,InvalidAccountNumberException {
         this.accountHolder = accountHolder;
-        if(!validateBalance(balance)) {
-            throw new MinimumBalanceException("Insufficient minimum balance to create an account!");
-        }
+        validateBalance(balance);
         this.balance = balance;
     }
 
@@ -21,13 +19,15 @@ public class Account {
         return accountHolder;
     }
 
-    private static boolean validateBalance(double balance){
-        return balance > 1000;
+    private static void validateBalance(double balance) throws MinimumBalanceException {
+        if(balance < 1000) {
+            throw new MinimumBalanceException("Insufficient balance to create an account!");
+        }
     }
 
     private static boolean canDebit(double amountToBeDebited,double balance){
         double updatedBalance = balance - amountToBeDebited;
-        return validateBalance(updatedBalance);
+        return updatedBalance >= 1000;
     }
 
     private static boolean canCredit(double amountToBeCredited){
@@ -36,16 +36,16 @@ public class Account {
 
     public double credit(double amountToBeCredited) throws MinimumBalanceException {
         if(canCredit(amountToBeCredited)){
-            balance+=amountToBeCredited;
-            return balance;
+            balance += amountToBeCredited;
+            return getBalance();
         }
         throw new MinimumBalanceException("Invalid credit request!");
     }
 
     public double debit(double amountToBeDebited) throws MinimumBalanceException {
         if (canDebit(amountToBeDebited, balance)) {
-            balance-=amountToBeDebited;
-            return balance;
+            balance -= amountToBeDebited;
+            return getBalance();
         }
         throw new MinimumBalanceException("Can't process your debit request due to low balance!");
     }
