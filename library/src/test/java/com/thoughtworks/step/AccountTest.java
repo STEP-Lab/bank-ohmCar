@@ -11,17 +11,12 @@ public class AccountTest {
 
     @Before
     public void setUp() throws MinimumBalanceException, InvalidAccountNumberException {
-        account = new Account("1111-2222", 5000, "Omkar Mote");
+        account = new Account(new AccountNumber("1111-2222"), 5000, "Omkar Mote");
     }
 
     @Test
     public void checkBalance() {
         assertThat(account.getBalance(),is(5000.0));
-    }
-
-    @Test
-    public void checkAccountNumber() {
-        assertThat(account.getAccountNumber(),is("1111-2222"));
     }
 
     @Test
@@ -31,12 +26,7 @@ public class AccountTest {
 
     @Test(expected = MinimumBalanceException.class)
     public void checkMinimumBalance () throws MinimumBalanceException,InvalidAccountNumberException {
-        new Account("2222-1111",800,"Ketan Sangle");
-    }
-
-    @Test(expected = InvalidAccountNumberException.class)
-    public void validateAccountNumber() throws InvalidAccountNumberException, MinimumBalanceException{
-        new Account("11-22",2000,"Harshad Thomabre");
+        new Account(new AccountNumber("2222-1111"),800,"Ketan Sangle");
     }
 
     @Test
@@ -62,10 +52,5 @@ public class AccountTest {
     public void checkMinimumBalanceToDebit() throws MinimumBalanceException{
         assertThat(account.getBalance(),is(5000.0));
         account.debit(4999);
-    }
-
-    @Test
-    public void checkSummary() {
-        assertThat(account.getSummary(),is("Account{accountNumber='1111-2222', accountHolder='Omkar Mote', balance=5000.0}"));
     }
 }
