@@ -31,4 +31,5 @@ public abstract class Transaction {
     public int hashCode() {
         return Objects.hash(to, amount);
     }
+
 }

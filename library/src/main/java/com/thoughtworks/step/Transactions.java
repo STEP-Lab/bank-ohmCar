@@ -3,7 +3,7 @@ package com.thoughtworks.step;
 import java.util.ArrayList;
 
 public class Transactions {
-    protected final ArrayList<Transaction> allTransactions;
+    protected ArrayList<Transaction> allTransactions;
 
     public Transactions() {
         this.allTransactions = new ArrayList<>();
