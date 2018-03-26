@@ -1,7 +1,5 @@
 package com.thoughtworks.step;
 
-
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class Account {
@@ -13,7 +11,6 @@ public class Account {
     public Account(AccountNumber accountNumber, double balance, String accountHolder) throws MinimumBalanceException,InvalidAccountNumberException {
         this.accountHolder = accountHolder;
         validateBalance(balance);
-        this.allTransactions = allTransactions;
         this.balance = balance;
     }
 
@@ -37,7 +34,7 @@ public class Account {
 
     private boolean canDebit(double amountToBeDebited,double balance){
         double updatedBalance = balance - amountToBeDebited;
-        return updatedBalance >= 1000;
+        return updatedBalance >= 1000 && amountToBeDebited>0;
     }
 
     private boolean canCredit(double amountToBeCredited){
