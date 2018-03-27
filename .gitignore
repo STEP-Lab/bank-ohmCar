@@ -7,3 +7,5 @@ gradle/
 .project
 *.iml
 **/out/**
+*.txt
+*.csv

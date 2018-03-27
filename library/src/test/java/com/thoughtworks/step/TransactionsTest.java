@@ -3,9 +3,7 @@ package com.thoughtworks.step;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -98,5 +96,26 @@ public class TransactionsTest {
         transactions.print(printWriter);
         printWriter.close();
         assertThat(result,hasItem(creditToKetan.toString()));
+    }
+
+    @Test
+    public void shouldWriteTransactionsInCSVFile() throws IOException {
+        ArrayList<String> result = new ArrayList<>();
+        transactions.credit("Ketan",700);
+        String headers = "Date,Amount,To";
+        Transaction creditToKetan = new CreditTransaction("Ketan",700);
+        FileWriter fileWriter = new FileWriter("transactions.csv"){
+            @Override
+            public Writer append(CharSequence csq) {
+                result.add(String.valueOf(csq));
+                System.out.println(csq);
+                return this;
+            }
+        };
+        CSVPrinter csvPrinter = new CSVPrinter(fileWriter, headers);
+        csvPrinter.writeHeaders();
+        transactions.writeTransactionsInCSV(csvPrinter);
+        csvPrinter.close();
+        assertThat(result,hasItems(String.valueOf(creditToKetan.getDate()), String.valueOf(creditToKetan.getAmount()), creditToKetan.getSource()));
     }
 }

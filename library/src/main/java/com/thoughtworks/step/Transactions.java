@@ -1,5 +1,6 @@
 package com.thoughtworks.step;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -63,4 +64,11 @@ public class Transactions {
             writer.println(transaction.toString());
         }
     }
+
+    public void writeTransactionsInCSV(CSVPrinter CSVPrinter) throws IOException {
+        for(Transaction transaction : allTransactions){
+            CSVPrinter.writeTransactions(transaction);
+        }
+    }
+
 }

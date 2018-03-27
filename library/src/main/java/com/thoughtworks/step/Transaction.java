@@ -22,6 +22,11 @@ public abstract class Transaction {
         return amount;
     }
 
+    public String getSource() {
+        return to;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
