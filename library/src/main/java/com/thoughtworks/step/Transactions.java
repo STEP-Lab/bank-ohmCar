@@ -36,4 +36,14 @@ public class Transactions {
         }
         return transactions.allTransactions;
     }
+
+    public ArrayList<Transaction> getAllCreditTransactions() {
+        Transactions transactions = new Transactions();
+        for (Transaction transaction: allTransactions) {
+            if (transaction instanceof CreditTransaction){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions.allTransactions;
+    }
 }

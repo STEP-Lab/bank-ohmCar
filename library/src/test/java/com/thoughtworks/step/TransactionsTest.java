@@ -3,6 +3,7 @@ package com.thoughtworks.step;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -55,5 +56,16 @@ public class TransactionsTest {
         Transaction debitToKetan = new DebitTransaction("Ketan",400);
         Transaction creditToKetan = new CreditTransaction("Ketan",700);
         assertThat(transactions.getTransactionsBelow(1000),hasItems(debitToKetan,creditToKetan));
+    }
+
+    @Test
+    public void shouldReturnAllCreditTransactions() {
+        transactions.credit("Omkar",1200);
+        transactions.debit("Ketan",400);
+        transactions.credit("Ketan",700);
+        Transaction creditToKetan = new CreditTransaction("Ketan",700);
+        Transaction creditToOmkar = new CreditTransaction("Omkar",1200);
+        ArrayList<Transaction> allCreditTransactions = transactions.getAllCreditTransactions();
+        assertThat(allCreditTransactions,hasItems(creditToKetan,creditToOmkar));
     }
 }
