@@ -39,11 +39,21 @@ public class TransactionsTest {
 
     @Test
     public void shouldReturnAllTheTransactionsAboveCertainLimit() {
-        transactions.credit("Omkar",1200.0);
-        transactions.debit("Ketan",1400.0);
-        transactions.credit("Ketan",700.0);
+        transactions.credit("Omkar",1200);
+        transactions.debit("Ketan",1400);
+        transactions.credit("Ketan",700);
         Transaction creditToOmkar = new CreditTransaction("Omkar", 1200);
         Transaction debitToKetan = new DebitTransaction("Ketan", 1400);
-        assertThat(transactions.getTransactionsAbove(1000.0),hasItems(creditToOmkar,debitToKetan));
+        assertThat(transactions.getTransactionsAbove(1000),hasItems(creditToOmkar,debitToKetan));
+    }
+
+    @Test
+    public void shouldReturnAllTheTransactionsBelowCertainLimit() {
+        transactions.credit("Omkar",1200);
+        transactions.debit("Ketan",400);
+        transactions.credit("Ketan",700);
+        Transaction debitToKetan = new DebitTransaction("Ketan",400);
+        Transaction creditToKetan = new CreditTransaction("Ketan",700);
+        assertThat(transactions.getTransactionsBelow(1000),hasItems(debitToKetan,creditToKetan));
     }
 }

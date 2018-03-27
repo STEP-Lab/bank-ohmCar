@@ -26,4 +26,14 @@ public class Transactions {
         }
         return transactions.allTransactions;
     }
+
+    public ArrayList<Transaction> getTransactionsBelow(double amount) {
+        Transactions transactions = new Transactions();
+        for (Transaction transaction: allTransactions) {
+            if (transaction.getAmount()<amount){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions.allTransactions;
+    }
 }
