@@ -46,4 +46,14 @@ public class Transactions {
         }
         return transactions.allTransactions;
     }
+
+    public ArrayList<Transaction> getAllDebitTransactions() {
+        Transactions transactions = new Transactions();
+        for (Transaction transaction: allTransactions) {
+            if (transaction instanceof DebitTransaction){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions.allTransactions;
+    }
 }

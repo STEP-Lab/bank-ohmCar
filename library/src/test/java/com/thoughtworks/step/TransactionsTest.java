@@ -68,4 +68,15 @@ public class TransactionsTest {
         ArrayList<Transaction> allCreditTransactions = transactions.getAllCreditTransactions();
         assertThat(allCreditTransactions,hasItems(creditToKetan,creditToOmkar));
     }
+
+    @Test
+    public void shouldReturnAllDebitTransactions() {
+        transactions.debit("Omkar",1200);
+        transactions.debit("Ketan",400);
+        transactions.credit("Ketan",700);
+        Transaction debitToKetan = new DebitTransaction("Ketan",400);
+        Transaction debitToOmkar = new DebitTransaction("Omkar",1200);
+        ArrayList<Transaction> allDebitTransactions = transactions.getAllDebitTransactions();
+        assertThat(allDebitTransactions,hasItems(debitToKetan,debitToOmkar));
+    }
 }
