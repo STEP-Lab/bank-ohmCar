@@ -18,6 +18,10 @@ public abstract class Transaction {
         return date;
     }
 
+    public double getAmount(){
+        return amount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,4 +36,11 @@ public abstract class Transaction {
         return Objects.hash(to, amount);
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "to='" + to + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

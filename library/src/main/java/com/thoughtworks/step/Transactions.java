@@ -16,4 +16,14 @@ public class Transactions {
     public void credit(String to, double amountToBeCredited) {
         this.allTransactions.add(new CreditTransaction(to,amountToBeCredited));
     }
+
+    public ArrayList<Transaction> getTransactionsAbove(double amount) {
+        Transactions transactions = new Transactions();
+        for (Transaction transaction: allTransactions) {
+            if (transaction.getAmount()>amount){
+                transactions.allTransactions.add(transaction);
+            }
+        }
+        return transactions.allTransactions;
+    }
 }

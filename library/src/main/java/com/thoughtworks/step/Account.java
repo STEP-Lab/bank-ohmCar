@@ -8,7 +8,7 @@ public class Account {
     private Transactions transactions = new Transactions();
     private ArrayList<Transaction> allTransactions = transactions.allTransactions;
 
-    public Account(AccountNumber accountNumber, double balance, String accountHolder) throws MinimumBalanceException,InvalidAccountNumberException {
+    public Account(AccountNumber accountNumber, double balance, String accountHolder) throws MinimumBalanceException {
         this.accountHolder = accountHolder;
         validateBalance(balance);
         this.balance = balance;
