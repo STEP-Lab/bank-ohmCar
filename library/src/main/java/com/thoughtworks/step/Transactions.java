@@ -1,5 +1,6 @@
 package com.thoughtworks.step;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Transactions {
@@ -55,5 +56,11 @@ public class Transactions {
             }
         }
         return transactions.allTransactions;
+    }
+
+    public void print(PrintWriter writer) {
+        for (Transaction transaction: allTransactions) {
+            writer.println(transaction.toString());
+        }
     }
 }

@@ -3,6 +3,9 @@ package com.thoughtworks.step;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -78,5 +81,22 @@ public class TransactionsTest {
         Transaction debitToOmkar = new DebitTransaction("Omkar",1200);
         ArrayList<Transaction> allDebitTransactions = transactions.getAllDebitTransactions();
         assertThat(allDebitTransactions,hasItems(debitToKetan,debitToOmkar));
+    }
+
+    @Test
+    public void shouldPrintTransactions() throws FileNotFoundException, UnsupportedEncodingException {
+        ArrayList<String> result = new ArrayList<>();
+        transactions.credit("Ketan",700);
+        Transaction creditToKetan = new CreditTransaction("Ketan",700);
+        PrintWriter printWriter = new PrintWriter("transactions.txt", "UTF-8"){
+            @Override
+            public void println(String x) {
+                result.add(x);
+                System.out.println(x);
+            }
+        };
+        transactions.print(printWriter);
+        printWriter.close();
+        assertThat(result,hasItem(creditToKetan.toString()));
     }
 }
