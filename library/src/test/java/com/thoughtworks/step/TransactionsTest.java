@@ -135,4 +135,18 @@ public class TransactionsTest {
         ArrayList<Transaction> transactionsOnMarchTwenty =  transactions.getTransactionsOn(marchTwenty);
         assertThat(transactionsOnMarchTwenty,hasItems(debitTransaction,creditTransaction));
     }
+
+    @Test
+    public void shouldReturnAllTheTransactionsBeforeAParticularDate() throws ParseException {
+        Date marchTwenty = dateFormatter.parse("2018-03-20");
+        Date marchTwentyOne = dateFormatter.parse("2018-03-21");
+        Date marchTwentyTwo = dateFormatter.parse("2018-03-22");
+        transactions.credit(marchTwenty,"Ketan",500);
+        transactions.debit(marchTwentyOne,"Omkar",800);
+        transactions.credit(marchTwentyTwo,"Madhuri",900);
+        CreditTransaction creditTransaction = new CreditTransaction(marchTwenty, "Ketan", 500);
+        DebitTransaction debitTransaction = new DebitTransaction(marchTwentyOne, "Omkar", 800);
+        ArrayList<Transaction> transactionsBeforeMarchTwentyTwo = transactions.getTransactionsBefore(marchTwentyTwo);
+        assertThat(transactionsBeforeMarchTwentyTwo,hasItems(creditTransaction,debitTransaction));
+    }
 }
