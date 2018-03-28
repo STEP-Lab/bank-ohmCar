@@ -6,6 +6,7 @@ public class Account {
     private final String accountHolder;
     private double balance;
     private Transactions transactions = new Transactions();
+    private double MIN_BALANCE_REQUIRED = 1000;
     private ArrayList<Transaction> allTransactions = transactions.allTransactions;
 
     public Account(AccountNumber accountNumber, double balance, String accountHolder) throws MinimumBalanceException {
@@ -27,14 +28,14 @@ public class Account {
     }
 
     private void validateBalance(double balance) throws MinimumBalanceException {
-        if(balance < 1000) {
+        if(balance < MIN_BALANCE_REQUIRED) {
             throw new MinimumBalanceException("Insufficient balance to create an account!");
         }
     }
 
     private boolean canDebit(double amountToBeDebited,double balance){
         double updatedBalance = balance - amountToBeDebited;
-        return updatedBalance >= 1000 && amountToBeDebited>0;
+        return updatedBalance >= MIN_BALANCE_REQUIRED && amountToBeDebited>0;
     }
 
     private boolean canCredit(double amountToBeCredited){

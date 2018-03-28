@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,9 +16,11 @@ import static org.junit.Assert.assertThat;
 public class TransactionsTest {
 
     private Transactions transactions;
+    private SimpleDateFormat dateFormatter;
 
     @Before
     public void setUp() {
+        dateFormatter = new SimpleDateFormat("yyyy-mm-dd");
         transactions = new Transactions();
     }
 
@@ -117,5 +121,18 @@ public class TransactionsTest {
         transactions.writeTransactionsInCSV(csvPrinter);
         csvPrinter.close();
         assertThat(result,hasItems(String.valueOf(creditToKetan.getDate()), String.valueOf(creditToKetan.getAmount()), creditToKetan.getSource()));
+    }
+
+    @Test
+    public void shouldReturnTransactionsOnAParticularDate() throws ParseException {
+        Date marchTwenty = dateFormatter.parse("2018-03-20");
+        Date marchTwentyOne = dateFormatter.parse("2018-03-21");
+        transactions.debit(marchTwenty,"Omkar",2000);
+        transactions.credit(marchTwenty,"Ketan",5000);
+        transactions.credit(marchTwentyOne,"Omkar",400);
+        DebitTransaction debitTransaction = new DebitTransaction(marchTwenty, "Omkar", 2000);
+        CreditTransaction creditTransaction = new CreditTransaction(marchTwenty, "Ketan", 5000);
+        ArrayList<Transaction> transactionsOnMarchTwenty =  transactions.getTransactionsOn(marchTwenty);
+        assertThat(transactionsOnMarchTwenty,hasItems(debitTransaction,creditTransaction));
     }
 }

@@ -3,6 +3,7 @@ package com.thoughtworks.step;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Transactions {
     protected ArrayList<Transaction> allTransactions;
@@ -11,8 +12,17 @@ public class Transactions {
         this.allTransactions = new ArrayList<>();
     }
 
+    protected void debit(Date date, String to, double amountToBeDebited){
+        this.allTransactions.add(new DebitTransaction(date,to,amountToBeDebited));
+    }
+
+
     public void debit(String to,double amountToBeDebited){
         this.allTransactions.add(new DebitTransaction(to,amountToBeDebited));
+    }
+
+    protected void credit(Date date, String to, double amountToBeCredited){
+        this.allTransactions.add(new CreditTransaction(date,to,amountToBeCredited));
     }
 
     public void credit(String to, double amountToBeCredited) {
@@ -71,4 +81,13 @@ public class Transactions {
         }
     }
 
+    public ArrayList<Transaction> getTransactionsOn(Date date) {
+        Transactions result = new Transactions();
+        for (Transaction transaction: allTransactions) {
+            if(transaction.getDate().equals(date)){
+                result.allTransactions.add(transaction);
+            }
+        }
+        return result.allTransactions;
+    }
 }
