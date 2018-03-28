@@ -163,4 +163,20 @@ public class TransactionsTest {
         ArrayList<Transaction> transactionsAfterMarchTwenty = transactions.getTransactionsAfter(marchTwenty);
         assertThat(transactionsAfterMarchTwenty,hasItems(creditTransaction,debitTransaction));
     }
+
+    @Test
+    public void shouldReturnTransactionsBetweenACertainPeriod() throws ParseException {
+        Date marchTen = dateFormatter.parse("2018-03-10");
+        Date marchTwelve = dateFormatter.parse("2018-03-12");
+        Date marchFifteen = dateFormatter.parse("2018-03-15");
+        Date marchTwenty = dateFormatter.parse("2018-03-20");
+        transactions.credit(marchTen,"omkar",100);
+        transactions.debit(marchTwelve,"Aditi",400);
+        transactions.credit(marchFifteen,"Ketan",700);
+        transactions.debit(marchTwenty,"Rahul",900);
+        CreditTransaction creditTransaction = new CreditTransaction(marchFifteen, "Ketan", 700);
+        DebitTransaction debitTransaction = new DebitTransaction(marchTwelve, "Aditi", 400);
+        ArrayList<Transaction> transactionsBetweenMarch10And20 = transactions.getTransactionsBetween(marchTen,marchTwenty);
+        assertThat(transactionsBetweenMarch10And20,hasItems(creditTransaction,debitTransaction));
+    }
 }

@@ -110,4 +110,14 @@ public class Transactions {
         }
         return result.allTransactions;
     }
+
+    public ArrayList<Transaction> getTransactionsBetween(Date from, Date to) {
+        Transactions result = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction.getDate().after(from) && transaction.getDate().before(to)){
+                result.allTransactions.add(transaction);
+            }
+        }
+        return result.allTransactions;
+    }
 }
