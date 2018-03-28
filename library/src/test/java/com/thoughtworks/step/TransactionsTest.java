@@ -50,7 +50,7 @@ public class TransactionsTest {
         transactions.credit("Ketan",700);
         Transaction creditToOmkar = new CreditTransaction("Omkar", 1200);
         Transaction debitToKetan = new DebitTransaction("Ketan", 1400);
-        assertThat(transactions.getTransactionsAbove(1000),hasItems(creditToOmkar,debitToKetan));
+        assertThat(transactions.getTransactionsAbove(1000).allTransactions,hasItems(creditToOmkar,debitToKetan));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class TransactionsTest {
         transactions.credit("Ketan",700);
         Transaction debitToKetan = new DebitTransaction("Ketan",400);
         Transaction creditToKetan = new CreditTransaction("Ketan",700);
-        assertThat(transactions.getTransactionsBelow(1000),hasItems(debitToKetan,creditToKetan));
+        assertThat(transactions.getTransactionsBelow(1000).allTransactions,hasItems(debitToKetan,creditToKetan));
     }
 
     @Test
@@ -70,8 +70,8 @@ public class TransactionsTest {
         transactions.credit("Ketan",700);
         Transaction creditToKetan = new CreditTransaction("Ketan",700);
         Transaction creditToOmkar = new CreditTransaction("Omkar",1200);
-        ArrayList<Transaction> allCreditTransactions = transactions.getAllCreditTransactions();
-        assertThat(allCreditTransactions,hasItems(creditToKetan,creditToOmkar));
+        Transactions allCreditTransactions = transactions.getAllCreditTransactions();
+        assertThat(allCreditTransactions.allTransactions,hasItems(creditToKetan,creditToOmkar));
     }
 
     @Test
@@ -81,8 +81,8 @@ public class TransactionsTest {
         transactions.credit("Ketan",700);
         Transaction debitToKetan = new DebitTransaction("Ketan",400);
         Transaction debitToOmkar = new DebitTransaction("Omkar",1200);
-        ArrayList<Transaction> allDebitTransactions = transactions.getAllDebitTransactions();
-        assertThat(allDebitTransactions,hasItems(debitToKetan,debitToOmkar));
+        Transactions allDebitTransactions = transactions.getAllDebitTransactions();
+        assertThat(allDebitTransactions.allTransactions,hasItems(debitToKetan,debitToOmkar));
     }
 
     @Test
@@ -132,8 +132,8 @@ public class TransactionsTest {
         transactions.credit(marchTwentyOne,"Omkar",400);
         DebitTransaction debitTransaction = new DebitTransaction(marchTwenty, "Omkar", 2000);
         CreditTransaction creditTransaction = new CreditTransaction(marchTwenty, "Ketan", 5000);
-        ArrayList<Transaction> transactionsOnMarchTwenty =  transactions.getTransactionsOn(marchTwenty);
-        assertThat(transactionsOnMarchTwenty,hasItems(debitTransaction,creditTransaction));
+        Transactions transactionsOnMarchTwenty =  transactions.getTransactionsOn(marchTwenty);
+        assertThat(transactionsOnMarchTwenty.allTransactions,hasItems(debitTransaction,creditTransaction));
     }
 
     @Test
@@ -146,8 +146,8 @@ public class TransactionsTest {
         transactions.credit(marchTwentyTwo,"Madhuri",900);
         CreditTransaction creditTransaction = new CreditTransaction(marchTwenty, "Ketan", 500);
         DebitTransaction debitTransaction = new DebitTransaction(marchTwentyOne, "Omkar", 800);
-        ArrayList<Transaction> transactionsBeforeMarchTwentyTwo = transactions.getTransactionsBefore(marchTwentyTwo);
-        assertThat(transactionsBeforeMarchTwentyTwo,hasItems(creditTransaction,debitTransaction));
+        Transactions transactionsBeforeMarchTwentyTwo = transactions.getTransactionsBefore(marchTwentyTwo);
+        assertThat(transactionsBeforeMarchTwentyTwo.allTransactions,hasItems(creditTransaction,debitTransaction));
     }
 
     @Test
@@ -160,8 +160,8 @@ public class TransactionsTest {
         transactions.credit(marchTwentyTwo,"Madhuri",900);
         CreditTransaction creditTransaction = new CreditTransaction(marchTwentyTwo, "Madhuri", 900);
         DebitTransaction debitTransaction = new DebitTransaction(marchTwentyOne, "Omkar", 800);
-        ArrayList<Transaction> transactionsAfterMarchTwenty = transactions.getTransactionsAfter(marchTwenty);
-        assertThat(transactionsAfterMarchTwenty,hasItems(creditTransaction,debitTransaction));
+        Transactions transactionsAfterMarchTwenty = transactions.getTransactionsAfter(marchTwenty);
+        assertThat(transactionsAfterMarchTwenty.allTransactions,hasItems(creditTransaction,debitTransaction));
     }
 
     @Test
@@ -176,7 +176,7 @@ public class TransactionsTest {
         transactions.debit(marchTwenty,"Rahul",900);
         CreditTransaction creditTransaction = new CreditTransaction(marchFifteen, "Ketan", 700);
         DebitTransaction debitTransaction = new DebitTransaction(marchTwelve, "Aditi", 400);
-        ArrayList<Transaction> transactionsBetweenMarch10And20 = transactions.getTransactionsBetween(marchTen,marchTwenty);
-        assertThat(transactionsBetweenMarch10And20,hasItems(creditTransaction,debitTransaction));
+        Transactions transactionsBetweenMarch10And20 = transactions.getTransactionsBetween(marchTen,marchTwenty);
+        assertThat(transactionsBetweenMarch10And20.allTransactions,hasItems(creditTransaction,debitTransaction));
     }
 }

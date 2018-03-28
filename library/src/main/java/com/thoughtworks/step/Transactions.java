@@ -29,44 +29,44 @@ public class Transactions {
         this.allTransactions.add(new CreditTransaction(to,amountToBeCredited));
     }
 
-    public ArrayList<Transaction> getTransactionsAbove(double amount) {
+    public Transactions getTransactionsAbove(double amount) {
         Transactions transactions = new Transactions();
         for (Transaction transaction: allTransactions) {
             if (transaction.getAmount()>amount){
                 transactions.allTransactions.add(transaction);
             }
         }
-        return transactions.allTransactions;
+        return transactions;
     }
 
-    public ArrayList<Transaction> getTransactionsBelow(double amount) {
+    public Transactions getTransactionsBelow(double amount) {
         Transactions transactions = new Transactions();
         for (Transaction transaction: allTransactions) {
             if (transaction.getAmount()<amount){
                 transactions.allTransactions.add(transaction);
             }
         }
-        return transactions.allTransactions;
+        return transactions;
     }
 
-    public ArrayList<Transaction> getAllCreditTransactions() {
+    public Transactions getAllCreditTransactions() {
         Transactions transactions = new Transactions();
         for (Transaction transaction: allTransactions) {
             if (transaction instanceof CreditTransaction){
                 transactions.allTransactions.add(transaction);
             }
         }
-        return transactions.allTransactions;
+        return transactions;
     }
 
-    public ArrayList<Transaction> getAllDebitTransactions() {
+    public Transactions getAllDebitTransactions() {
         Transactions transactions = new Transactions();
         for (Transaction transaction: allTransactions) {
             if (transaction instanceof DebitTransaction){
                 transactions.allTransactions.add(transaction);
             }
         }
-        return transactions.allTransactions;
+        return transactions;
     }
 
     public void print(PrintWriter writer) {
@@ -81,43 +81,43 @@ public class Transactions {
         }
     }
 
-    public ArrayList<Transaction> getTransactionsOn(Date date) {
+    public Transactions getTransactionsOn(Date date) {
         Transactions result = new Transactions();
         for (Transaction transaction: allTransactions) {
             if(transaction.getDate().equals(date)){
                 result.allTransactions.add(transaction);
             }
         }
-        return result.allTransactions;
+        return result;
     }
 
-    public ArrayList<Transaction> getTransactionsBefore(Date date) {
+    public Transactions getTransactionsBefore(Date date) {
         Transactions result = new Transactions();
         for(Transaction transaction : allTransactions){
             if(transaction.getDate().before(date)){
                 result.allTransactions.add(transaction);
             }
         }
-        return result.allTransactions;
+        return result;
     }
 
-    public ArrayList<Transaction> getTransactionsAfter(Date date) {
+    public Transactions getTransactionsAfter(Date date) {
         Transactions result = new Transactions();
         for(Transaction transaction : allTransactions){
             if(transaction.getDate().after(date)){
                 result.allTransactions.add(transaction);
             }
         }
-        return result.allTransactions;
+        return result;
     }
 
-    public ArrayList<Transaction> getTransactionsBetween(Date from, Date to) {
+    public Transactions getTransactionsBetween(Date from, Date to) {
         Transactions result = new Transactions();
         for(Transaction transaction : allTransactions){
             if(transaction.getDate().after(from) && transaction.getDate().before(to)){
                 result.allTransactions.add(transaction);
             }
         }
-        return result.allTransactions;
+        return result;
     }
 }
