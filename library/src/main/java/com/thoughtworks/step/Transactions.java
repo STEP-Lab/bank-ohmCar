@@ -100,4 +100,14 @@ public class Transactions {
         }
         return result.allTransactions;
     }
+
+    public ArrayList<Transaction> getTransactionsAfter(Date date) {
+        Transactions result = new Transactions();
+        for(Transaction transaction : allTransactions){
+            if(transaction.getDate().after(date)){
+                result.allTransactions.add(transaction);
+            }
+        }
+        return result.allTransactions;
+    }
 }
